@@ -28,3 +28,15 @@ nextflow run main.nf \
 
 EOF
 ```
+
+## ----------------------------------------------------------
+## 3. HLA mutations
+## ----------------------------------------------------------
+```sh
+## Summary results
+module load R/4.1.0
+
+path_code="xxx/code/source/"
+type="OV"
+Rscript ${path_code}/PolysolverToDF.R -r ${path_base}/HLAmutations/${type} -s ${path_base}/HLAmutations/${type}/ -t ${type} -g hg38
+```
