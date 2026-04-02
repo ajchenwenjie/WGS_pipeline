@@ -1,6 +1,9 @@
+## ----------------------------------------------------------
+## 1. Preprocess
+## ----------------------------------------------------------
+```sh
 ## Requried columns in sample_list.txt: Patient,Tissue_Type,Sample_ID,FQ_1,FQ_2,Aliged_bam,Sorted_bam,Sorted_dedup_bam,Realign_bam,BQSR_bam
 ## Novaseq
-```sh
 study="xxx"
 path_OV="xxx"
 path_base=${path_OV}/${study}/
@@ -33,4 +36,27 @@ nextflow run main.nf \
   --ref ${path_base}/reference/GRCh38/v0/Homo_sapiens_assembly38.fasta
 
 EOF
+```
+
+## ----------------------------------------------------------
+## Print the headers and generate the new samples
+## ----------------------------------------------------------
+```sh
+path_base=${path_OV}/${study}/
+
+module load R/4.1.0
+Rscript .../code/source/download_summary.R -p ${path_base}/
+
+# Header
+sample_num=("novaseq" "bgiseq") 
+for i in "${sample_num[@]}"; do
+
+    input_file="${path_base}/metadata/paired_list_noheader_${i}.txt"
+    output_file="${path_base}/metadata/paired_list_header_all_${i}.txt"
+
+    bash .../code/source/WGS_print_header.sh ${input_file} ${output_file}
+done
+
+module load R/4.1.0
+Rscript .../code/source/WGS_preprocess_summary.R -p ${path_base}/
 ```
