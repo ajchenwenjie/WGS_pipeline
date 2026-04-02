@@ -1,5 +1,6 @@
 ## Requried columns in sample_list.txt: Patient,Tissue_Type,Sample_ID,FQ_1,FQ_2,Aliged_bam,Sorted_bam,Sorted_dedup_bam,Realign_bam,BQSR_bam
 ## Novaseq
+```sh
 study="xxx"
 path_OV="xxx"
 path_base=${path_OV}/${study}/
@@ -32,3 +33,4 @@ nextflow run main.nf \
   --ref ${path_base}/reference/GRCh38/v0/Homo_sapiens_assembly38.fasta
 
 EOF
+```
