@@ -2,7 +2,7 @@
 ## 2. Mutations
 ## ----------------------------------------------------------
 ```sh
-path_base="/rsrch5/home/hema_bio-Malignan/OvarianCancerWGS_data/2023_CancerCell_Lahtinen/"
+path_base="/xxx/"
 
 bsub <<EOF
 #BSUB -W 240:00
@@ -14,17 +14,17 @@ bsub <<EOF
 #BSUB -M 20
 #BSUB -R "rusage[mem=20]"
 
-cd /rsrch6/home/hema_bio-Malignan/wchen20/code/nextflow/call_snv_hla
+cd .../code/nextflow/call_snv_hla
 module load nextflow
 #nextflow clean -f
 nextflow run main.nf \
-  -w /rsrch5/home/hema_bio-Malignan/OvarianCancerWGS_data/2023_CancerCell_Lahtinen/log \
+  -w ${path_base}/log \
   -profile seadragon \
-  --cohort_dir /rsrch5/home/hema_bio-Malignan/OvarianCancerWGS_data/2023_CancerCell_Lahtinen \
+  --cohort_dir ${path_base} \
   --parts paired_list_header_processed_all.txt \
   --genome hg38 \
   --job_num 20 \
-  --ref /rsrch6/home/hema_bio-Malignan/Gu_lab_projects/WenjieChen/reference/GRCh38/v0/Homo_sapiens_assembly38.fasta \
+  --ref .../reference/GRCh38/v0/Homo_sapiens_assembly38.fasta \
 
 EOF
 ```
